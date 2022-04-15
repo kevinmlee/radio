@@ -3,14 +3,9 @@ const nodemailer = require("nodemailer");
 const https = require("https");
 
 // Routes
-//const TWITTER = require("./api/Twitter");
-const REDDIT = require("./api/Reddit");
+
+const SPOTIFY = require("./api/Spotify");
 const UNSPLASH = require("./api/Unsplash");
-//const INSTAGRAM = require("./api/Instagram");
-///const GOOGLE = require("./api/Google");
-//const YOUTUBE = require("./api/YouTube");
-// const HUBSPOT = require("./api/HubSpot");
-// const MONGO = require("./api/MongoDB");
 
 /* Database & API */
 const express = require("express");
@@ -78,12 +73,12 @@ if (process.env.NODE_ENV === "production") {
 app.all("/unsplash/get/wallpaper", UNSPLASH.getWallpaper);
 
 /////////////////////////////////////////////
-// Reddit
+// Spotify
 /////////////////////////////////////////////
 
-app.all("/reddit/search", REDDIT.search);
-app.all("/reddit/get/subreddit/posts", REDDIT.getSubredditPosts);
-app.all("/reddit/get/hot/posts", REDDIT.getHotPosts);
+app.all("/spotify/auth/", SPOTIFY.auth);
+app.all("/spotify/get/genres", SPOTIFY.getGenres);
+app.all("/spotify/get/recommendations", SPOTIFY.getRecommendations);
 
 /////////////////////////////////////////////
 // Database API Routes

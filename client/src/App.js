@@ -31,6 +31,8 @@ export default class App extends Component {
       backdropImage: "",
       backdropToggle: false,
       loadingBackdrop: false,
+
+      spotifyAuthToken: "",
     };
   }
 

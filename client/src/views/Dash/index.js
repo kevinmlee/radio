@@ -24,6 +24,13 @@ export default class Dash extends Component {
     if (this.props.state.wallpapers.length === 0) this.getWallpaper("lofi");
     console.log("wallpapers", this.props.state.wallpapers);
     */
+
+    await this.auth();
+
+    this.getGenres();
+
+    //this.getWallpaper("lofi");
+    //this.getRecommendations("lo-fi");
   };
 
   componentWillUnmount = () => {
@@ -62,6 +69,50 @@ export default class Dash extends Component {
           console.log(error);
         }
       );
+  };
+
+  getGenres = async () => {
+    return await axios
+      .put("/spotify/get/genres", {
+        token: this.props.state.spotifyAuthToken,
+      })
+      .then(
+        (response) => {
+          console.log("genres", response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  getRecommendations = async (genre) => {
+    return await axios
+      .put("/spotify/get/recommendations", {
+        genre: genre,
+        token: this.props.state.spotifyAuthToken,
+      })
+      .then(
+        (response) => {
+          console.log("getRecommendations", response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  auth = async () => {
+    return await axios.put("/spotify/auth", {}).then(
+      (response) => {
+        console.log("auth", response);
+        this.props.setAppState("spotifyAuthToken", response.data.access_token);
+        return;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   filter = () => {
