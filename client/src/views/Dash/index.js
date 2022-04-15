@@ -16,7 +16,7 @@ export default class Dash extends Component {
   }
 
   componentDidMount = async () => {
-    if (this.props.state.wallpapers.length === 0) this.getWallpaper();
+    if (this.props.state.wallpapers.length === 0) this.getWallpaper("lofi");
     console.log("wallpapers", this.props.state.wallpapers);
   };
 
@@ -44,17 +44,21 @@ export default class Dash extends Component {
   };
 
   render() {
+    const wallpapers = this.props.state.wallpapers;
+    const genre = this.props.state.genre;
+
+    console.log("wallpaper for " + genre, wallpapers[genre]);
+
     return (
       <Container id="dashboard" maxWidth="100%">
-        <h2>asdfdaa</h2>
-        {/*
-        {this.props.state.home && (
-      <Home
-            setAppState={this.props.setAppState}
-            state={this.props.state}
-            updateLocalStorage={this.props.updateLocalStorage}
+        <h2>Radio</h2>
+
+        {wallpapers[genre] && (
+          <img
+            src={wallpapers[genre].urls.regular}
+            alt={wallpapers[genre].alt_description}
           />
-        )}*/}
+        )}
       </Container>
     );
   }

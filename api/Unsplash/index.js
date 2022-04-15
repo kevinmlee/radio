@@ -10,7 +10,7 @@ module.exports = {
       "/photos/random/?client_id=" +
       process.env.UNSPLASH_ACCESS_KEY +
       "&query=" +
-      "lofi" +
+      genre +
       "&orientation=landscape";
 
     let request = https.get(url, (response) => {
