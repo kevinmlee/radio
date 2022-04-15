@@ -1,23 +1,48 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container } from "@mui/material";
+import { Box, Container, Radio } from "@mui/material";
 
-// components
-import Home from "./components/Home";
+import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
+
+import UserInput from "./components/UserInput";
 
 export default class Dash extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      twitter: true,
-      reddit: false,
+      filterToggle: false,
     };
+
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount = async () => {
+    document.addEventListener("mousedown", this.handleClickOutside);
+    /*
     if (this.props.state.wallpapers.length === 0) this.getWallpaper("lofi");
     console.log("wallpapers", this.props.state.wallpapers);
+    */
+  };
+
+  componentWillUnmount = () => {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  };
+
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target))
+      this.setState({ filterToggle: false });
+  };
+
+  changeGenre = (event) => {
+    const selectedGenre = event.currentTarget.getAttribute("data-genre");
+    this.props.setAppState("genre", selectedGenre);
+    this.setState({ filterToggle: false });
+  };
+
+  toggle = async (state) => {
+    await this.setState({ [state]: !this.state[state] });
   };
 
   getWallpaper = async (genre) => {
@@ -27,15 +52,11 @@ export default class Dash extends Component {
       })
       .then(
         (response) => {
-          console.log(response);
-
-          console.log("url", response.data.urls);
-          console.log("user", response.data.user);
+          //console.log(response);
 
           let wallpapers = this.props.state.wallpapers;
           wallpapers[genre] = response.data;
           this.props.setAppState("wallpapers", wallpapers);
-          console.log("wallpapers", this.props.state.wallpapers);
         },
         (error) => {
           console.log(error);
@@ -43,18 +64,70 @@ export default class Dash extends Component {
       );
   };
 
+  filter = () => {
+    return (
+      <Box className="filter">
+        <div
+          className="active-display"
+          onClick={() => this.toggle("filterToggle")}
+        >
+          <span className="active-filter">Favorites</span>
+          <TuneRoundedIcon />
+        </div>
+        <ul
+          className={"filter-options " + (this.state.filterToggle && "active")}
+          ref={this.wrapperRef}
+        >
+          <li
+            className={this.props.state.genre === "Lo-fi" ? "active" : ""}
+            onClick={this.changeGenre}
+            data-genre="Lo-fi"
+          >
+            Lo-fi
+            <Radio checked={this.props.state.genre === "Lo-fi"} size="small" />
+          </li>
+          <li
+            className={this.props.state.genre === "Hip-hop" ? "active" : ""}
+            onClick={this.changeGenre}
+            data-genre="Hip-hop"
+          >
+            Hip-hop
+            <Radio
+              checked={this.props.state.genre === "Hip-hop"}
+              size="small"
+            />
+          </li>
+        </ul>
+      </Box>
+    );
+  };
+
   render() {
     const wallpapers = this.props.state.wallpapers;
     const genre = this.props.state.genre;
 
-    console.log("wallpaper for " + genre, wallpapers[genre]);
+    //console.log("wallpaper for " + genre, wallpapers[genre]);
 
     return (
       <Container id="dashboard" maxWidth="100%">
-        <h2>Radio</h2>
+        <div className="overlay" />
+
+        <Box id="content">
+          <h2>Radio</h2>
+
+          <UserInput
+            state={this.props.state}
+            setAppState={this.props.setAppState}
+            updateLocalStorage={this.props.updateLocalStorage}
+          />
+          {this.filter()}
+
+          <h2>Current Genre: {this.props.state.genre}</h2>
+        </Box>
 
         {wallpapers[genre] && (
           <img
+            id="bg"
             src={wallpapers[genre].urls.regular}
             alt={wallpapers[genre].alt_description}
           />

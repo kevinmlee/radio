@@ -26,7 +26,7 @@ export default class App extends Component {
       scrollStatus: "",
 
       wallpapers: [],
-      genre: "lofi",
+      genre: "Lo-fi",
 
       backdropImage: "",
       backdropToggle: false,
