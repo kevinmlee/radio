@@ -22,54 +22,12 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      // header
-      scrollStatus: "",
-
       wallpapers: [],
-      genre: "Lo-fi",
-
-      backdropImage: "",
-      backdropToggle: false,
-      loadingBackdrop: false,
+      genre: "",
 
       spotifyAuthToken: "",
     };
   }
-
-  componentDidMount = () => {
-    window.addEventListener("scroll", () => {
-      let scrollStatus = "sticky";
-      let backToTop = false;
-      if (window.scrollY === 0) scrollStatus = "top";
-      if (window.scrollY > 600) backToTop = true;
-
-      this.setState({ scrollStatus, backToTop });
-    });
-  };
-
-  componentWillUnmount = () => {
-    window.removeEventListener("scroll", null);
-  };
-
-  changeTab = (event) => {
-    const tabs = [
-      "home",
-      "twitter",
-      "reddit",
-      "instagram",
-      "youtube",
-      "trends",
-      "settings",
-    ];
-    const selectedTab = event.currentTarget.getAttribute("data-tab");
-
-    tabs.forEach((tab) => {
-      if (tab === selectedTab) this.setState({ [tab]: true });
-      else this.setState({ [tab]: false });
-    });
-
-    this.setState({ sidebar: false });
-  };
 
   setAppState = async (name, value) => {
     await this.setState({ [name]: value });
@@ -79,25 +37,6 @@ export default class App extends Component {
     this.setState({ [state]: !this.state[state] });
   };
 
-  scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  alerts = () => {
-    /*
-    if (this.state.searchQueryBlankError)
-      return (
-        <Alert severity="error">
-          Search query cannot be blank. Please enter a search query and try
-          again.
-        </Alert>
-      );
-    */
-  };
-
   updateLocalStorage = (key, value) => {
     let userSettings = {};
 
@@ -105,54 +44,7 @@ export default class App extends Component {
       userSettings = JSON.parse(localStorage.getItem("userSettings"));
 
     userSettings[key] = value;
-
     localStorage.setItem("userSettings", JSON.stringify(userSettings));
-  };
-
-  reset = async () => {
-    await this.setState({});
-  };
-
-  imageBackdrop = () => {
-    return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={() => this.toggle("backdropToggle")}
-        onClick={() => this.toggle("backdropToggle")}
-      >
-        <img src={this.state.backdropImage} alt="" />
-      </Backdrop>
-    );
-  };
-
-  loadingBackdrop = () => {
-    return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={() => this.toggle("loadingBackdrop")}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  };
-
-  initialSearchBackdrop = () => {
-    return (
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={() => this.toggle("loadingBackdrop")}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
-  };
-
-  backToTopButton = () => {
-    return (
-      <div className="back-to-top" onClick={() => this.scrollToTop()}>
-        <KeyboardArrowUpIcon />
-      </div>
-    );
   };
 
   render() {
@@ -163,9 +55,6 @@ export default class App extends Component {
           setAppState={this.setAppState}
           updateLocalStorage={this.updateLocalStorage}
         />
-        {this.state.backdropToggle && this.imageBackdrop()}
-        {this.state.loadingBackdrop && this.loadingBackdrop()}
-        {this.state.backToTop && this.backToTopButton()}{" "}
       </Box>
     );
   }

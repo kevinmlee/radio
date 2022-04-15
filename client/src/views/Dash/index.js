@@ -4,7 +4,7 @@ import { Box, Container, Radio } from "@mui/material";
 
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 
-import UserInput from "./components/UserInput";
+const ytIDs = { "Lo-fi": "5qap5aO4i9A", "R&B / Chill Hip-hop": "Lq2pt_1Y6eQ" };
 
 export default class Dash extends Component {
   constructor(props) {
@@ -20,17 +20,18 @@ export default class Dash extends Component {
 
   componentDidMount = async () => {
     document.addEventListener("mousedown", this.handleClickOutside);
-    /*
-    if (this.props.state.wallpapers.length === 0) this.getWallpaper("lofi");
-    console.log("wallpapers", this.props.state.wallpapers);
-    */
 
-    await this.auth();
+    // append static script
+    const staticScript = document.createElement("script");
+    staticScript.src = "/js/static.js";
+    staticScript.async = true;
+    document.body.appendChild(staticScript);
 
-    this.getGenres();
-
-    //this.getWallpaper("lofi");
-    //this.getRecommendations("lo-fi");
+    // append youtube script
+    const script = document.createElement("script");
+    script.src = "/js/youtube.js";
+    script.async = true;
+    document.body.appendChild(script);
   };
 
   componentWillUnmount = () => {
@@ -122,7 +123,7 @@ export default class Dash extends Component {
           className="active-display"
           onClick={() => this.toggle("filterToggle")}
         >
-          <span className="active-filter">Favorites</span>
+          <span className="active-filter">Genres</span>
           <TuneRoundedIcon />
         </div>
         <ul
@@ -138,11 +139,13 @@ export default class Dash extends Component {
             <Radio checked={this.props.state.genre === "Lo-fi"} size="small" />
           </li>
           <li
-            className={this.props.state.genre === "Hip-hop" ? "active" : ""}
+            className={
+              this.props.state.genre === "R&B / Chill Hip-hop" ? "active" : ""
+            }
             onClick={this.changeGenre}
-            data-genre="Hip-hop"
+            data-genre="R&B / Chill Hip-hop"
           >
-            Hip-hop
+            R&B / Chill Hip-hop
             <Radio
               checked={this.props.state.genre === "Hip-hop"}
               size="small"
@@ -161,20 +164,36 @@ export default class Dash extends Component {
 
     return (
       <Container id="dashboard" maxWidth="100%">
-        <div className="overlay" />
+        <canvas id="static" className={genre ? "active" : ""}></canvas>
 
         <Box id="content">
           <h2>Radio</h2>
 
-          <UserInput
-            state={this.props.state}
-            setAppState={this.props.setAppState}
-            updateLocalStorage={this.props.updateLocalStorage}
-          />
           {this.filter()}
 
           <h2>Current Genre: {this.props.state.genre}</h2>
         </Box>
+
+        <Box id="youtubeStream">
+          <iframe
+            id="ytplayer"
+            className={genre ? "active" : ""}
+            width="560"
+            height="315"
+            src={
+              "https://www.youtube-nocookie.com/embed/" +
+              ytIDs[genre] +
+              "?controls=0&autoplay=0&mute=0&loop=1&showinfo=0&autohide=1&modestbranding=1&rel=0&enablejsapi=1"
+            }
+            title="YouTube video player"
+            frameBorder="0"
+            allow="autoplay"
+          ></iframe>
+        </Box>
+
+        <button id="playBtn" style={{ position: "relative", zIndex: 5 }}>
+          Click to play
+        </button>
 
         {wallpapers[genre] && (
           <img
