@@ -11,8 +11,8 @@
   position: relative;
 }
 .filter .active-display {
-  padding: 14px 20px;
-  width: 175px;
+  padding: 14px 70px 14px 20px;
+  min-width: 175px;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
 .filter .filter-options {
   padding: 0;
   margin: 0;
-  width: 200px;
+  min-width: 200px;
   border-radius: 12px;
   list-style: none;
   position: absolute;
@@ -46,7 +46,7 @@
   max-height: 700px;
 }
 .filter .filter-options > * {
-  padding: 14px 20px;
+  padding: 14px 50px 14px 20px;
   cursor: pointer;
   transition: ease-in-out all 0.3s;
   position: relative;
