@@ -5,6 +5,10 @@ import { Box, Container, Radio } from "@mui/material";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 
 const genres = {
+  "Chillout Lounge": "9UMxZofMNbA",
+  "Coffee Shop": "-5KAN9_CzSA",
+  "Deep House": "GDQnA1LVCWA",
+  "Jazz Piano": "Dx5qFachd3A",
   "Lo-fi": "5qap5aO4i9A",
   Piano: "y7e-GC6oGhg",
   "R&B / Chill Hip-hop": "Lq2pt_1Y6eQ",
