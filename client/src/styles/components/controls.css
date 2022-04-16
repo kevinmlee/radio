@@ -27,7 +27,11 @@
   align-items: center;
   gap: 25px;
 }
-
+#volume {
+  padding: 0;
+  accent-color: rgb(210, 193, 156);
+  border: none !important;
+}
 .play-pause {
   display: none !important;
 }

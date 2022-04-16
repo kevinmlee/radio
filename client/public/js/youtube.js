@@ -28,8 +28,6 @@ $("#pause").on("click", function() {
   player.pauseVideo();
 });
 
-/*
-$("#play").on("click", function() {
-player.setVolume(80);
+$("#volume").mousemove(function() {
+  player.setVolume($(this).val());
 });
-*/
