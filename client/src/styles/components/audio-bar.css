@@ -11,6 +11,7 @@
   width: 4px;
   margin: 0 1px;
   border-radius: 3px;
+  height: 2px; /* default */
 }
 
 [class^="bar-"].bar-3 {
@@ -26,7 +27,7 @@
   }
 }
 
-.random .bar-1 {
+.random.active .bar-1 {
   animation: lineWave-1 0.4s 0.4s both infinite alternate;
 }
 
@@ -39,7 +40,7 @@
   }
 }
 
-.random .bar-2 {
+.random.active .bar-2 {
   animation: lineWave-2 0.7s 0.5s both infinite alternate;
 }
 
@@ -52,7 +53,7 @@
   }
 }
 
-.random .bar-3 {
+.random.active .bar-3 {
   animation: lineWave-3 0.7s 0.2s both infinite alternate;
 }
 
@@ -65,7 +66,7 @@
   }
 }
 
-.random .bar-4 {
+.random.active .bar-4 {
   animation: lineWave-4 0.3s 0.1s both infinite alternate;
 }
 
@@ -78,7 +79,7 @@
   }
 }
 
-.random .bar-5 {
+.random.active .bar-5 {
   animation: lineWave-5 0.4s 0.4s both infinite alternate;
 }
 

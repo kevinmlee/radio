@@ -20,12 +20,16 @@ function onPlayerStateChange() {
   player.playVideo();
 }
 
-$("#playBtn").on("click", function() {
-  player.unMute();
-  player.setVolume(80);
+$("#play").on("click", function() {
   player.playVideo();
 });
 
-$("#muteBtn").on("click", function() {
-  player.mute();
+$("#pause").on("click", function() {
+  player.pauseVideo();
 });
+
+/*
+$("#play").on("click", function() {
+player.setVolume(80);
+});
+*/

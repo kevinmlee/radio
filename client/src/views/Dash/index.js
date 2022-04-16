@@ -23,6 +23,8 @@ export default class Dash extends Component {
 
     this.state = {
       filterToggle: false,
+
+      playing: false,
     };
 
     this.wrapperRef = React.createRef();
@@ -61,7 +63,7 @@ export default class Dash extends Component {
   changeGenre = (event) => {
     const selectedGenre = event.currentTarget.getAttribute("data-genre");
     this.props.setAppState("genre", selectedGenre);
-    this.setState({ filterToggle: false });
+    this.setState({ filterToggle: false, playing: true });
   };
 
   toggle = async (state) => {
@@ -176,7 +178,12 @@ export default class Dash extends Component {
           {this.filter()}
 
           <div className="controls">
-            <div className="bars audio-wrapper random">
+            <div
+              className={
+                "bars audio-wrapper random " +
+                (this.state.playing ? "active" : "")
+              }
+            >
               <div className="bar-1"></div>
               <div className="bar-2"></div>
               <div className="bar-3"></div>
@@ -185,8 +192,16 @@ export default class Dash extends Component {
             </div>
 
             <div className="controllers">
-              <PlayArrowIcon />
-              <PauseIcon />
+              <PlayArrowIcon
+                id="play"
+                className={"play-pause " + (this.state.playing ? "" : "active")}
+                onClick={() => this.setState({ playing: true })}
+              />
+              <PauseIcon
+                id="pause"
+                className={"play-pause " + (this.state.playing ? "active" : "")}
+                onClick={() => this.setState({ playing: false })}
+              />
             </div>
 
             <div className="volume-controls">

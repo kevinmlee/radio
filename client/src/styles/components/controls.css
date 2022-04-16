@@ -27,3 +27,10 @@
   align-items: center;
   gap: 25px;
 }
+
+.play-pause {
+  display: none !important;
+}
+.play-pause.active {
+  display: block !important;
+}
