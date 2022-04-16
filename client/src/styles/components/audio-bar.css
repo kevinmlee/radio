@@ -1,0 +1,92 @@
+.audio-wrapper {
+  display: flex;
+  align-items: flex-end;
+  height: 25px;
+  width: 30px;
+  position: relative;
+}
+
+[class^="bar-"] {
+  background-color: #ffffff;
+  width: 4px;
+  margin: 0 1px;
+  border-radius: 3px;
+}
+
+[class^="bar-"].bar-3 {
+  background-color: rgb(210, 193, 156);
+}
+
+@keyframes lineWave-1 {
+  from {
+    height: 7px;
+  }
+  to {
+    height: 17px;
+  }
+}
+
+.random .bar-1 {
+  animation: lineWave-1 0.4s 0.4s both infinite alternate;
+}
+
+@keyframes lineWave-2 {
+  from {
+    height: 9px;
+  }
+  to {
+    height: 23px;
+  }
+}
+
+.random .bar-2 {
+  animation: lineWave-2 0.7s 0.5s both infinite alternate;
+}
+
+@keyframes lineWave-3 {
+  from {
+    height: 10px;
+  }
+  to {
+    height: 17px;
+  }
+}
+
+.random .bar-3 {
+  animation: lineWave-3 0.7s 0.2s both infinite alternate;
+}
+
+@keyframes lineWave-4 {
+  from {
+    height: 9px;
+  }
+  to {
+    height: 15px;
+  }
+}
+
+.random .bar-4 {
+  animation: lineWave-4 0.3s 0.1s both infinite alternate;
+}
+
+@keyframes lineWave-5 {
+  from {
+    height: 7px;
+  }
+  to {
+    height: 21px;
+  }
+}
+
+.random .bar-5 {
+  animation: lineWave-5 0.4s 0.4s both infinite alternate;
+}
+
+@keyframes lineWave {
+  from {
+    height: 5px;
+  }
+  to {
+    height: 20px;
+  }
+}

@@ -3,11 +3,14 @@ import axios from "axios";
 import { Box, Container, Radio } from "@mui/material";
 
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import VolumeDownIcon from "@mui/icons-material/VolumeDown";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const genres = {
   "Chillout Lounge": "9UMxZofMNbA",
   "Coffee Shop": "-5KAN9_CzSA",
-  "Deep House": "GDQnA1LVCWA",
   "Jazz Piano": "Dx5qFachd3A",
   "Lo-fi": "5qap5aO4i9A",
   Piano: "y7e-GC6oGhg",
@@ -165,24 +168,39 @@ export default class Dash extends Component {
   };
 
   render() {
-    const wallpapers = this.props.state.wallpapers;
     const genre = this.props.state.genre;
-
-    //console.log("wallpaper for " + genre, wallpapers[genre]);
 
     return (
       <Container id="dashboard" maxWidth="100%">
-        <div className="overlay" />
-        {/*<canvas id="static" className={genre ? "active" : ""}></canvas>*/}
-
         <Box id="content" sx={{ paddingTop: 4 }}>
           {this.filter()}
+
+          <div className="controls">
+            <div className="bars audio-wrapper random">
+              <div className="bar-1"></div>
+              <div className="bar-2"></div>
+              <div className="bar-3"></div>
+              <div className="bar-4"></div>
+              <div className="bar-5"></div>
+            </div>
+
+            <div className="controllers">
+              <PlayArrowIcon />
+              <PauseIcon />
+            </div>
+
+            <div className="volume-controls">
+              <VolumeDownIcon />
+              <input id="volume" min="0" max="100" type="range" />
+              <VolumeUpIcon />
+            </div>
+          </div>
         </Box>
 
-        <Box id="youtubeStream">
+        <div class="tv-container">
           <iframe
             id="ytplayer"
-            className={genre ? "active" : ""}
+            className={"screen " + (genre ? "active" : "")}
             width="560"
             height="315"
             src={
@@ -193,20 +211,13 @@ export default class Dash extends Component {
             title="YouTube video player"
             frameBorder="0"
             allow="autoplay"
-          ></iframe>
-        </Box>
+          />
+          <div class="tv-overlay" />
+        </div>
 
         {/*<button id="playBtn" style={{ position: "relative", zIndex: 5 }}>
           Click to play
           </button>*/}
-
-        {wallpapers[genre] && (
-          <img
-            id="bg"
-            src={wallpapers[genre].urls.regular}
-            alt={wallpapers[genre].alt_description}
-          />
-        )}
       </Container>
     );
   }
