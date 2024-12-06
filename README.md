@@ -18,8 +18,6 @@
 - Run 'git push'
 - Go to github and submit a pull request
 
-This will push everything into GitHub which will automatically deploy onto what we have set up on Heroku for staging. You may access or view your changes here: https://socialmediasearch.herokuapp.com/. Build process will take some time, so check back later.
-
 ## Getting your changes onto production
 
 - Your changes will need to be reviewed before it will be pushed into the production environment so this process may take some time
