@@ -1,9 +1,9 @@
-# Social Media Search
+
 
 ## How to install and run
 
 - Open terminal and go into your workspace
-- run this command: 'git clone https://github.com/kevinmlee/social-search.git'
+- Clone the repository: 'git clone'
   - it should start downloading everything you need.
 - run 'npm install' to install required libraries
 - run 'npm start' to start server and client. You should now be able to view the app at 'http://localhost:3000'
